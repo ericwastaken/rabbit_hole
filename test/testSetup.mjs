@@ -2,7 +2,6 @@ import amqp from 'amqp-connection-manager';
 import moment from 'moment';
 import dotenv from 'dotenv';
 import path from 'path';
-import fs from 'fs';
 
 // Load environment variables from test.env
 dotenv.config({ path: path.resolve('test', 'test.env') });

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import {Command, CommanderError} from 'commander';
+import {Command} from 'commander';
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';

@@ -8,6 +8,7 @@ class ConfigLoader {
   /**
    * Loads and merges queue configurations from the specified file paths.
    * @param {string[]} filePaths - Array of file paths to load configurations from.
+   * @param logger - The logger instance to use for logging.
    * @returns {Object} Merged queue configuration object.
    */
   static loadQueueConfigs(filePaths, logger) {

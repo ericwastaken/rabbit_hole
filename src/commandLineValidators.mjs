@@ -1,4 +1,3 @@
-import { Command } from 'commander';
 import * as commander from "commander";
 import fs from "fs";
 
@@ -13,7 +12,7 @@ class CommandLineValidators {
    * @returns {number} - The parsed positive integer.
    * @throws {commander.InvalidArgumentError} - If the value is not a positive integer.
    */
-  static parseIntPositive(value, previous) {
+  static parseIntPositive(value) {
     const parsedValue = parseInt(value, 10);
     if (isNaN(parsedValue) || parsedValue <= 0) {
       throw new commander.InvalidArgumentError('Prefetch size must be a positive integer.');
