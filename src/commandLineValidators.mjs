@@ -8,7 +8,6 @@ class CommandLineValidators {
   /**
    * Custom validation function to ensure prefetchSize is a positive integer.
    * @param {string} value - The value to parse.
-   * @param {number} previous - The previous value.
    * @returns {number} - The parsed positive integer.
    * @throws {commander.InvalidArgumentError} - If the value is not a positive integer.
    */
