@@ -1,0 +1,9 @@
+{
+  default_regex: ".*drop.*",
+  queue_list: [
+    {
+      "queue_name": "test-queue",
+      "regex_to_drop": "drop"
+    }
+  ]
+}

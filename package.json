@@ -1,0 +1,23 @@
+{
+  "name": "rabbit_hole",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha test/rabbitHoleTest.mjs",
+    "test-setup": "mocha test/testSetupTest.mjs"
+  },
+  "dependencies": {
+    "amqp-connection-manager": "^4.1.14",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5",
+    "json5": "^2.2.3",
+    "winston": "^3.14.2",
+    "cron": "^3.1.7"
+  },
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "mocha": "10.1.0",
+    "moment": "^2.30.1"
+  }
+}
