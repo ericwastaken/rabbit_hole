@@ -1,0 +1,25 @@
+services:
+  rabbit_hole:
+    build:
+        context: .
+        dockerfile_inline: |
+          FROM node:20.10.0
+          WORKDIR /app
+          COPY package.json package-lock.json /app/
+          RUN npm ci
+    volumes:
+      - ./src:/app/src
+      - ./config:/app/config
+      - ./dropped-messages:/app/dropped-messages
+      - ./secrets:/app/secrets
+    environment:
+      - NODE_ENV=production
+    command: |
+      node /app/src/index.mjs \
+        --prefetch-size 100 \
+        --env-file /app/secrets/docker.env \
+        --queue-config /app/config/queue-conf-example.json5 \
+        --runMode interval \
+        --runSchedule="0,11 * * * *" \
+        --runDurationSeconds=300 \
+        --v --v
