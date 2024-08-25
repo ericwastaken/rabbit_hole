@@ -137,5 +137,9 @@ Also, in a standard competing consumer model, a broker will only assign a messag
 
 For the above reasons, it's useful to run this utility in an interval mode. This way, the utility can run for a short period of time, clean up the bad messages, and then stop, allowing the other consumers to process the good messages without interference from this utility's consumer.
 
+## Developer Info
+
+There is a test directory with some tests as well as a Docker Compose to fire up a RabbitMQ server for testing. The tests are very simple and are not exhaustive. Tests create a handful of messages, some that will be dropped and some that will not, then a count of the messages in the queue is compared with an expectation.
+
 ## License
 This project is licensed under the MIT License. See the [LICENSE file](./LICENSE.md) for details.
