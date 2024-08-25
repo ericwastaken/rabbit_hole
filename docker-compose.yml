@@ -1,5 +1,6 @@
 services:
   rabbit_hole:
+    image: rabbit-hole-node:20240824
     build:
         context: .
         dockerfile_inline: |
