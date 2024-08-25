@@ -15,7 +15,7 @@ const program = new Command();
 
 // Define command line options
 program
-  .option('--prefetch-size <int>', 'Number of messages to prefetch', CommandLineValidators.parseIntPositive, 100)
+  .option('--prefetch-size <int>', 'Number of messages to prefetch', CommandLineValidators.parseIntPositive, 1000)
   .option('--logDroppedMessages', 'Log dropped messages to a file', false)
   .option('--logMessagePath <path>', 'Path to log dropped messages', './dropped-messages')
   .requiredOption('--env-file <path>', 'Path to .env file', CommandLineValidators.fileExists, (value, previous) => previous.concat([value]), [])

@@ -16,7 +16,7 @@ services:
       - NODE_ENV=production
     command: |
       node /app/src/index.mjs \
-        --prefetch-size 100 \
+        --prefetch-size 1000 \
         --env-file /app/secrets/docker.env \
         --queue-config /app/config/queue-conf-example.json5 \
         --runMode interval \
