@@ -44,8 +44,11 @@ class RabbitConsumer {
   async createConnection() {
     // Construct the connection URL
     const urls = [`${this.brokerProtocol}://${this.brokerUsername}:${this.brokerPassword}@${this.brokerUrl}:${this.brokerPort}`];
+    this.logger.silly(`Prepared urls=${urls}`);
     const connectionOptions = this.brokerCACert ? { ca: [this.brokerCACert] } : {};
+    this.logger.silly(`connectionOptions=${JSON.stringify(connectionOptions)}`);
     // Establish the connection
+    this.logger.info(`Attempting to connect to RabbitMQ. If you don't see a 'Connected...' message, something is wrong!`);
     this.connection = amqp.connect(urls, connectionOptions);
 
     // Log connection events
@@ -55,11 +58,34 @@ class RabbitConsumer {
       // Attempt to reconnect logic can go here if needed
     });
 
-    // Return a promise that resolves when connected and rejects on disconnect
-    return new Promise((resolve, reject) => {
-      this.connection.once('connect', resolve);
-      this.connection.once('disconnect', reject);
+    let isConnected = false;
+    let isDisconnected = false;
+
+    this.connection.once('connect', () => {
+      this.logger.info('Successfully connected to RabbitMQ');
+      isConnected = true;
     });
+
+    this.connection.once('disconnect', params => {
+      this.logger.error(`Failed to connect to RabbitMQ: ${params.err.stack}`);
+      isDisconnected = true;
+    });
+
+    return new Promise((resolve, reject) => {
+      const checkConnection = () => {
+        if (isConnected) {
+          resolve();
+        } else if (isDisconnected) {
+          reject(new Error('Failed to connect to RabbitMQ'));
+        } else {
+          this.logger.silly('Still trying to connect to RabbitMQ...');
+          setTimeout(checkConnection, 1000);
+        }
+      };
+
+      checkConnection();
+    });
+
   }
 
   /**

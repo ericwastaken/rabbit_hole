@@ -5,6 +5,11 @@ services:
         context: .
         dockerfile_inline: |
           FROM node:20.10.0
+          # Install networking utilities
+          RUN apt-get update && \
+              apt-get install -y iputils-ping netcat-openbsd && \
+              apt-get clean && \
+              rm -rf /var/lib/apt/lists/*
           WORKDIR /app
           COPY package.json package-lock.json /app/
           RUN npm ci
@@ -21,6 +26,6 @@ services:
         --env-file /app/secrets/docker.env \
         --queue-config /app/config/queue-conf-example.json5 \
         --runMode interval \
-        --runSchedule="0,11 * * * *" \
+        --runSchedule="* * * * *" \
         --runDurationSeconds=300 \
         --v --v
